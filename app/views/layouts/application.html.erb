@@ -19,9 +19,17 @@
     <% end %>
   </div>
   <% if user_signed_in? %>
+
+	<%= form_tag(:controller => "home", :action => "display", :method => "get") do %>
+		<%= select_tag(:time_id, options_for_select([['Past Week', 'week']])) %> 
+   		<%= submit_tag "Search"%>
+	<% end %>
+	
+	
+	
 	<% if current_user.token != nil%>
 	<div id="tweets"> 
-		<% for t in current_user.tweets%>
+		<% for t in current_user.tweets.past_week%>
 			<%=t.description%>
 			<br />
 		<% end%>

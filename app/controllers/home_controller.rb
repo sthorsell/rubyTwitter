@@ -12,10 +12,10 @@ class HomeController < ApplicationController
                      :oauth_token_secret => current_user.secret
                    }
       access_token = OAuth::AccessToken.from_hash(consumer, token_hash )
-      raise Tweet.all_week.to_yaml
+      # raise current_user.tweets.past_week.to_yaml
       
       response = access_token.request(:get, "http://api.twitter.com/1.1/statuses/user_timeline.json")
-      # raise response.to_yaml
+      # raise response.body.to_yaml
       if response.code != '401' && response.code != '400'
       # current_user.tweets = ''
       JSON.parse(response.body).each do |i|
@@ -23,6 +23,7 @@ class HomeController < ApplicationController
         t = Tweet.new
         t.description = i['text']
         t.twitter_id = i['id_str']
+        t.date_tweeted =  Time.parse(i['created_at'])
         current_user.tweets << t
         current_user.stereo_info = 'test Meta'
       end
@@ -33,5 +34,11 @@ class HomeController < ApplicationController
       current_user.save!
     end
     end 
+  end
+  
+  def display
+     value = params[:time_id]
+     current_user.
+       raise value.to_yaml
   end
 end
