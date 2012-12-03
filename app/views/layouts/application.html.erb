@@ -21,7 +21,10 @@
   <% if user_signed_in? %>
 	<% if current_user.token != nil%>
 	<div id="tweets"> 
-
+		<% for t in current_user.tweets%>
+			<%=t.description%>
+			<br />
+		<% end%>
 		
 	</div>
 	<% end %>
