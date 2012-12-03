@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :token
-  
+  has_many :tweets
   validates_presence_of :username
   validates_uniqueness_of :username
 
