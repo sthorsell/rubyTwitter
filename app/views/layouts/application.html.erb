@@ -20,7 +20,13 @@
   </div>
   <% if user_signed_in? %>
 	<% if current_user.token != nil%>
-	<div> <%= current_user.tweets%> </div>
+	<div id="tweets"> 
+		<% current_user.tweets.each do |contact| %>
+		<%=contact%>
+		<br />
+		<% end %>
+		
+	</div>
 	<% end %>
   <% end %>
 

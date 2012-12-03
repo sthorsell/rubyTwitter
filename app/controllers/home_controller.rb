@@ -13,11 +13,17 @@ class HomeController < ApplicationController
                    }
       access_token = OAuth::AccessToken.from_hash(consumer, token_hash )
       
-      response = access_token.request(:get, "http://api.twitter.com/1/statuses/home_timeline.json")
-      current_user.tweets = 'hi' + current_user.token + response.body
-      
+      response = access_token.request(:get, "http://api.twitter.com/1.1/statuses/user_timeline.json")
+      # raise response.code.to_yaml
+      if response.code != '401'
+      # current_user.tweets = ''
+      tweets = ''
+      JSON.parse(response.body).each do |i|
+        tweets += i['text'] + ',';
+      end
+      current_user.tweets = tweets.split(",")
       current_user.save!
-      # raise response.to_yaml
+    end
     end 
   end
 end
