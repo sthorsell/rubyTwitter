@@ -21,21 +21,21 @@
   <% if user_signed_in? %>
 
 	<%= form_tag(:controller => "home", :action => "display", :method => "get") do %>
-		<%= select_tag(:time_id, options_for_select([['Past Week', 'week']])) %> 
-   		<%= submit_tag "Search"%>
+		<%= select_tag(:time_id, options_for_select([['All Tweets', 'all'],['Past Week', 'week'],['Past Month', 'month'],['Past Year', 'year']])) %> 
+   		<%= submit_tag "Update Time Period"%>
 	<% end %>
 	
 	
 	
 	<% if current_user.token != nil%>
 	<div id="tweets"> 
-		<% for t in current_user.tweets.past_week%>
+		<% for t in @tweetsToDisplay %>
+			On <%= Time.parse(t.date_tweeted).strftime("%m/%d/%Y")%>, this account tweeted the following:
 			<%=t.description%>
 			<br />
-		<% end%>
-		
+		<% end %>
 	</div>
-	<br /><%=current_user.stereo_info%>
+	
 	<% end %>
   <% end %>
 

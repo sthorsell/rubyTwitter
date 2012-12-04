@@ -2,7 +2,7 @@ class Tweet < ActiveRecord::Base
   attr_accessible :date, :description, :twitter_id, :date_tweeted
   belongs_to :user
   
-  STATUSES = [['week' , Time.now() - (7*24*60*60)],['month' , Time.now() - (4*7*24*60*60)], ['year' , Time.now() - (12*4*7*24*60*60)]]
+  STATUSES = [['week' , Time.now() - (2*24*60*60)],['month' , Time.now() - (4*7*24*60*60)], ['year' , Time.now() - (12*4*7*24*60*60)]]
    # validate_inclusion_of :status, :in => STATUSES
 
    class <<self

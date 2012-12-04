@@ -1,8 +1,10 @@
 class HomeController < ApplicationController
+  @@period = 'all'
+
   def index
     
     if user_signed_in?
-      # raise current_user.token.to_yaml
+      
     consumer = OAuth::Consumer.new("rRySeVVxnS5hxxXE3KmoQ", "TXFQGdof1swkt1gsohwlW0KwwGloA9YgWiUv7i770",
         { :site => "http://api.twitter.com",
           :scheme => :header
@@ -17,7 +19,7 @@ class HomeController < ApplicationController
       response = access_token.request(:get, "http://api.twitter.com/1.1/statuses/user_timeline.json")
       # raise response.body.to_yaml
       if response.code != '401' && response.code != '400'
-      # current_user.tweets = ''
+
       JSON.parse(response.body).each do |i|
         if !Tweet.exists?(["twitter_id = ?", i['id_str']])
         t = Tweet.new
@@ -25,12 +27,19 @@ class HomeController < ApplicationController
         t.twitter_id = i['id_str']
         t.date_tweeted =  Time.parse(i['created_at'])
         current_user.tweets << t
-        current_user.stereo_info = 'test Meta'
+        # current_user.current_tweets << t
+        # current_user.stereo_info << t
       end
         # raise current_user.tweets.to_yaml
         
       end
-      # current_user.tweets = tweets.split(",")
+      if @@period == 'all'
+        @tweetsToDisplay = current_user.tweets
+       else
+         methodName = 'past_' + @@period
+          @tweetsToDisplay = current_user.tweets.send(methodName)
+       end
+       
       current_user.save!
     end
     end 
@@ -38,7 +47,8 @@ class HomeController < ApplicationController
   
   def display
      value = params[:time_id]
-     current_user.
-       raise value.to_yaml
+     @@period  = value
+     redirect_to '/home/index'
+       # raise current_user.current_tweets.to_yaml
   end
 end
