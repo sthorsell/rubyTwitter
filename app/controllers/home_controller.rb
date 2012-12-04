@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   @@period = 'all'
-
+ 
   def index
     
     if user_signed_in?
@@ -34,6 +34,7 @@ class HomeController < ApplicationController
         
       end
       if @@period == 'all'
+        # raise 'here'.to_yaml
         @tweetsToDisplay = current_user.tweets
        else
          methodName = 'past_' + @@period
