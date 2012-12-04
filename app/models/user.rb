@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
   
-  
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :token, :user_id, :current_tweets
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :token, :user_id, :current_tweets, :twitter_id
   has_many :tweets
   validates_presence_of :username
   validates_uniqueness_of :username
@@ -41,6 +40,16 @@ class User < ActiveRecord::Base
     end
   end
   
+  #MetaProgramming: alows booleans that haven't been created as 
+  # def method_missing(name, *args)
+  #   name = name.to_s
+  #   super unless name =~ /(_info|_price)=?$/
+  #   if name =~ (/=$/)
+  #     instance_variable_set("@#{name.chop}", args.first)
+  #   else
+  #     instance_variable_get("@#{name}")
+  #   end
+  # end
 
 
 

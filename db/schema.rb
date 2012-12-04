@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204015909) do
+ActiveRecord::Schema.define(:version => 20121204041836) do
 
   create_table "tweets", :force => true do |t|
     t.string   "date"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20121204015909) do
     t.string   "secret"
     t.string   "tweets"
     t.string   "current_tweets"
+    t.string   "twitter_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
