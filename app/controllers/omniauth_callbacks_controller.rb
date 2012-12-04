@@ -2,15 +2,15 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def all
     
     auth = request.env['omniauth.auth']
+    auth.token = auth['credentials']['token']
+    auth.secret = auth['credentials']['secret']
     if current_user.twitter_id != auth['uid']
-      Tweet.delete_all
+      current_user.tweets.delete_all
       current_user.twitter_id = auth['uid']
     end
     user = User.from_omniauth(request.env["omniauth.auth"])
-    token = auth['credentials']['token']
-    secret = auth['credentials']['secret']
-    current_user.token = token
-    current_user.secret = secret
+    current_user.token = auth.token
+    current_user.secret = auth.secret
     if current_user.save!
     else
       raise user.to_yaml

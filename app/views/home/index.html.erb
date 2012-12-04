@@ -1,1 +1,23 @@
+<% if user_signed_in? %>
 
+	<%= form_tag(:controller => "home", :action => "display", :method => "get") do %>
+		<%= select_tag(:time_id, options_for_select([['', 'all'],['All Tweets', 'all'],['Past Week', 'week'],['Past Month', 			 	'month'],['Past Year', 'year']])) %> 
+ 		<%= submit_tag "Update Time Period"%>
+	<% end %>
+	<% if current_user.token != nil%>
+	<div id="tweets"> 
+		<br /><br />
+		<% if @tweetsToDisplay != nil%>
+		<% for t in @tweetsToDisplay %>
+			On <%= Time.parse(t.date_tweeted).strftime("%m/%d/%Y")%>, this account tweeted the following:
+			<%=t.description%>
+			<br />
+		<% end %>
+		<% end %>
+	</div>
+	
+	<% end %>
+	<% else%>
+	<p>Welcome to the Twitter API test. It allows the retrieving of a tweets for a specific account for which the user must log in to. First create an account by clicking the sign up link. Then click link with Twitter and log in with Twitter credentials to approve the retrieval of your tweets. They will then be display on the home page. You can click link with twitter at any time to link a different account, but once you do the previous Twitter account tweets will be erased.
+		</p>
+<% end %>

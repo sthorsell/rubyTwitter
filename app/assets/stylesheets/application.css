@@ -15,5 +15,17 @@
 #tweets
 {
 text-align:center;
-color:red;
+color:blue;
+}
+
+#user_nav
+{
+text-align:right;
+
+}
+
+#loggedOut
+{
+	text-align:center;
+	font-size:28px;
 }

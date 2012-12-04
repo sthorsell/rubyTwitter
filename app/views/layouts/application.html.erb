@@ -13,33 +13,13 @@
       <%= link_to "Logout", destroy_user_session_path, method: :delete %> |
       <%= link_to "Link with Twitter", user_omniauth_authorize_path(:twitter) %>
     <% else %>
+	  <div id = "loggedOut">
       <%= link_to "Sign up", new_user_registration_path %> |
       <%= link_to "Login", new_user_session_path %> |
-
+	  </div>
     <% end %>
   </div>
-  <% if user_signed_in? %>
 
-	<%= form_tag(:controller => "home", :action => "display", :method => "get") do %>
-		<%= select_tag(:time_id, options_for_select([['All Tweets', 'all'],['Past Week', 'week'],['Past Month', 'month'],['Past Year', 'year']])) %> 
-   		<%= submit_tag "Update Time Period"%>
-	<% end %>
-	
-	
-	
-	<% if current_user.token != nil%>
-	<div id="tweets"> 
-		<% if @tweetsToDisplay != nil%>
-		<% for t in @tweetsToDisplay %>
-			On <%= Time.parse(t.date_tweeted).strftime("%m/%d/%Y")%>, this account tweeted the following:
-			<%=t.description%>
-			<br />
-		<% end %>
-		<% end %>
-	</div>
-	
-	<% end %>
-  <% end %>
 
 <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>

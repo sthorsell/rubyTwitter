@@ -19,23 +19,21 @@ class HomeController < ApplicationController
       
         #Good opporunity for MetaProgramming, pass hash of parameters
         url = ''
-        if Tweet.count > 0
+        if current_user.tweets.count > 0
           url = "http://api.twitter.com/1.1/statuses/user_timeline.json?since_id=#{Tweet.first.twitter_id}"
         else
           url = "http://api.twitter.com/1.1/statuses/user_timeline.json"
         end
         response = access_token.request(:get, url)
-        # raise response.to_yaml
         if response.code != '401' && response.code != '400'
 
           JSON.parse(response.body).each do |i|
-            if !Tweet.exists?(["twitter_id = ?", i['id_str']])
+            if !current_user.tweets.exists?(["twitter_id = ?", i['id_str']])
               t = Tweet.new
               t.description = i['text']
               t.twitter_id = i['id_str']
               t.date_tweeted =  Time.parse(i['created_at'])
               current_user.tweets << t
-              
             end
 
           end
