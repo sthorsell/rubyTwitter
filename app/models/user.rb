@@ -50,8 +50,5 @@ class User < ActiveRecord::Base
   #     instance_variable_get("@#{name}")
   #   end
   # end
-
-
-
     
 end

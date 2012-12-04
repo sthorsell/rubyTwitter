@@ -4,7 +4,7 @@ class Tweet < ActiveRecord::Base
 
   #MetaProgramming example, create method for each time period and return tweets from it. 
   
-  TIMES = [['week' , Time.now() - (2*24*60*60)],['month' , Time.now() - (4*7*24*60*60)], ['year' , Time.now() - (12*4*7*24*60*60)]]
+  TIMES = [['week' , Time.now() - (7*24*60*60)],['month' , Time.now() - (4*7*24*60*60)], ['year' , Time.now() - (12*4*7*24*60*60)]]
 
   class << self
     TIMES.each do |time|

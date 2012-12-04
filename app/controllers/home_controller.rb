@@ -35,14 +35,11 @@ class HomeController < ApplicationController
               t.twitter_id = i['id_str']
               t.date_tweeted =  Time.parse(i['created_at'])
               current_user.tweets << t
-              # current_user.current_tweets << t
-              # current_user.stereo_info << t
+              
             end
-            # raise current_user.tweets.to_yaml
 
           end
           if @@period == 'all'
-            # raise 'here'.to_yaml
             @tweetsToDisplay = current_user.tweets
           else
             methodName = 'past_' + @@period
@@ -58,6 +55,5 @@ class HomeController < ApplicationController
       value = params[:time_id]
       @@period  = value
       redirect_to '/home/index'
-      # raise current_user.current_tweets.to_yaml
     end
   end

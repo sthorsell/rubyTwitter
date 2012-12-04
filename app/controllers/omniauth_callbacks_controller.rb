@@ -2,7 +2,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def all
     
     auth = request.env['omniauth.auth']
-    # raise (current_user.twitter_id).to_yaml
     if current_user.twitter_id != auth['uid']
       Tweet.delete_all
       current_user.twitter_id = auth['uid']
